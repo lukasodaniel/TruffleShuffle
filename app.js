@@ -38,13 +38,45 @@ app.use(stormpath.init(app, {
   application: {
     href: 'https://api.stormpath.com/v1/applications/34CnU24wff6rygrsHbSYES'
   },
+  expand: {
+    customData: true
+  },
+  web:{
+	  register: {
+		fields: {
+		  phone: {
+			  enabled: true,
+			  name: 'phone',
+			  placeholder: 'Phone Number',
+			  required: true,
+			  type: 'text'
+			},
+		Venmo: {
+			  enabled: true,
+			  name: 'Venmo',
+			  placeholder: 'Venmo Username',
+			  required: false,
+			  type: 'text'
+				}	
+			}
+	}
+  }
+  ,
   
   postRegistrationHandler: function (account, req, res, next) {
-    console.log('User:', account.email, 'just registered!');
-	
 	//Put user data into our own mySQL database for ease of queries relating to requests objects
-    next();
-  },
+	
+	connection.query("INSERT IGNORE INTO TS_Users VALUES('" + account.email + "', '" + account.givenName + "', '" + account.surname + "', '" + account.customData.Venmo + "','" + account.customData.phone + "')"
+	, function(err, rows, fields) {
+		if (err) 
+			throw err;
+		
+		next();
+	}
+  );
+}
+	
+	,
   website: true
 }));
 
@@ -53,6 +85,5 @@ app.get('/', function(req, res) {
 });
 
 app.on('stormpath.ready',function(){
-  console.log('Stormpath Ready');
   app.listen(3000);
 });
