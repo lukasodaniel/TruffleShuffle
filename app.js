@@ -3,6 +3,8 @@ var stormpath = require('express-stormpath');
 var ejs = require('ejs');
 var html = require('html');
 var mysql = require('mysql');
+var http = require('http');
+
 var connection = mysql.createConnection({
   host     : 'classroom.cs.unc.edu',
   user     : 'shrivar',
@@ -14,8 +16,8 @@ var connection = mysql.createConnection({
 var app = express();
 
 //Staticly serve js and css files, also use the ejs template engine which allows the rendering of raw html, although the file extensions remains as .ejs
-//app.use(express.static(__dirname + '/views'));
-//app.set('views', __dirname + '/views');
+app.use(express.static(__dirname + '/views'));
+app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
 //connecting to mysql database
@@ -51,6 +53,12 @@ app.use(stormpath.init(app, {
 app.get('/', function(req, res) {
   res.render('home');
 });
+
+app.use('/profile',stormpath.loginRequired,require('./profile')()); 
+
+app.use('/open_requests',stormpath.loginRequired,require('./open_requests')()); 
+
+app.use('/submit_request',stormpath.loginRequired,require('./submit_request')()); 
 
 app.on('stormpath.ready',function(){
   console.log('Stormpath Ready');
