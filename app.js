@@ -3,6 +3,8 @@ var stormpath = require('express-stormpath');
 var ejs = require('ejs');
 var html = require('html');
 var mysql = require('mysql');
+var http = require('http');
+
 var connection = mysql.createConnection({
   host     : 'classroom.cs.unc.edu',
   user     : 'shrivar',
@@ -81,6 +83,12 @@ app.get('/', function(req, res) {
   res.render('anastasia');
 });
 
+
+app.use('/profile',stormpath.loginRequired,require('./profile')()); 
+
+app.use('/open_requests',stormpath.loginRequired,require('./open_requests')()); 
+
+app.use('/submit_request',stormpath.loginRequired,require('./submit_request')()); 
 
 app.on('stormpath.ready',function(){
   app.listen(3000);

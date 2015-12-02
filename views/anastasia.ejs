@@ -8,25 +8,44 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet"/>
 	<link rel="stylesheet" type="text/css" href="style.css">
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.js"></script>
+	<script type="text/javascript" src="animation.js"></script>    
+	<script src="http://connect.soundcloud.com/sdk.js"></script>
+	<script type="text/javascript" src="thejspart.js"></script>
+	
 	<title>Truffle Shuffle</title>
   </head>
   <body>
-  		<div id="title">
+		<div id="title">
 			<h1>Truffle Shuffle<br>
 			<!--<i style="font-size:80%" class="fa fa-cutlery"></i><i class="fa fa-bicycle"></i><i class="fa fa-child"></i>-->
-			</h1>
+			</h1>		
+		</div>
+		<div id="loginInfo">
+				Username: <input size="15" type="username" class="form-control" id="username" placeholder="Enter your username">
+				Password: <input size="15" type="password" class="form-control" id="password" placeholder="Enter your password">
+				<a href="/login" class="btn btn-primary">Login</a><h6 style="display:inline"><a href="#">Forgot password?</a></h6>
 		</div>
     <div class="container">
       <div class="jumbotron">
-        <h1>Welcome to Truffle Shuffle!</h1>
-		<img src="food.jpg">
-        <p>Ready to get your food delivered to you? Do you have time to kill and want to make some money?<br>
-		Truffle Shuffle is a peer-to-peer food delivery platform where you can both get food delivered
-		at a low price, and also deliver food to another person! Sign up here or log in!
-		</p>
-        <p><a href="/login" class="btn btn-primary">Login now</a></p>
-        <p><span class="small">Don't have an account?</span><span>&nbsp;</span><a href="/register" class="small">Register now</a></p>
+		<div id="topbar">
+			<ul>
+				<li>view active requests</li>
+				<li>request delivery</li>
+				<li>track request</li>
+				<li>nearby restaurants</li>
+			</ul>
+		</div>
+		<div id="foodPic"></div>
+			<p>Hungry but don't feel like leaving your house? Do you have time to kill and want to make some money?<br>
+			Truffle Shuffle is a peer-to-peer food delivery platform where you can both get food delivered
+			at a low price, and deliver food to another person at a fee which you get to decide! Let's get started!
+			</p>
+			<p><a href="/login" class="btn btn-primary">Login</a><a href="/register" class="btn btn-primary">Register</a></p>
       </div>
     </div>
+	<footer>
+	<h1 id="truffleShuffleBoy"><i class="fa fa-hashtag" ></i>FIRSTYOUGOTTADOTHETRUFFLESHUFFLE</h1>
+	</footer>
   </body>
 </html>
