@@ -9,6 +9,7 @@ var connection = mysql.createConnection({
   password : 'secret',
   database : 'shrivardb'
 });
+var User = require('./User');
 
 
 var app = express();
@@ -65,15 +66,10 @@ app.use(stormpath.init(app, {
   
   postRegistrationHandler: function (account, req, res, next) {
 	//Put user data into our own mySQL database for ease of queries relating to requests objects
+	var newUser = new User(account.email, account.givenName,account.surname ,account.customData.Venmo, account.customData.phone);
+	newUser.saveUser();
 	
-	connection.query("INSERT IGNORE INTO TS_Users VALUES('" + account.email + "', '" + account.givenName + "', '" + account.surname + "', '" + account.customData.Venmo + "','" + account.customData.phone + "')"
-	, function(err, rows, fields) {
-		if (err) 
-			throw err;
-		
-		next();
-	}
-  );
+	next();
 }
 	
 	,
@@ -81,8 +77,10 @@ app.use(stormpath.init(app, {
 }));
 
 app.get('/', function(req, res) {
+	var shrivar = new User("shrivar@gmail.com");
   res.render('anastasia');
 });
+
 
 app.on('stormpath.ready',function(){
   app.listen(3000);
