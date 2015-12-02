@@ -19,6 +19,7 @@ body{
 	margin-top: -20px;
 }
 
+
 #foodPic{
 	background-image: url("food.jpg");
 	background-size: cover;
@@ -53,9 +54,10 @@ body{
 	z-index: 1;
 	background: #EEEEEE;
 	padding: 20px;
-	width: 200px;
-	height: 200px;
-	border-radius: 5px;
+	width: 250px;
+	height: 220px;
+	border-top-left-radius: 15px;
+	border-bottom-left-radius: 15px;
 	box-shadow: 3px 3px 10px black;
 }
 
@@ -64,7 +66,7 @@ body{
 }
 
 #loginInfo input:nth-child(2){
-	margin-bottom: 10px;
+	margin-bottom: 20px;
 }
 
 #title h1:hover{
