@@ -14,9 +14,25 @@ body{
 	background-size: cover;
 }
 
+#volumeButton i{
+	font-size: 30px;
+	color: white;
+	margin: 0 0 0 20px;
+	display:inline;
+	position: relative;
+	float: left;
+	text-shadow: 3px 2px black;
+}
+
+#volumeButton i:hover{
+	text-shadow: 3px 2px #F7A48D;
+	cursor: pointer;
+}
+
 
 #title{
-	margin-top: -20px;
+	width: 600px;
+	margin: 0 auto;
 }
 
 
@@ -108,6 +124,13 @@ body{
 	box-shadow: 2px 2px 3px black;
 	color: inherit;
 }
+
+#truffleShuffleBoy:hover{
+	letter-spacing: 5px;
+	color: brown;
+	cursor: pointer;
+}
+
 footer{
 	height: 100px;
 	width: 100%;
@@ -119,5 +142,5 @@ footer{
 	opacity: 0.7;
 	letter-spacing: 1px;
 	text-transform: lowercase;
-		font-family: 'Crete Round', Tahoma, sans-serif;
+	font-family: 'Crete Round', Tahoma, sans-serif;
 }
