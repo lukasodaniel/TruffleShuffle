@@ -4,14 +4,12 @@ var ejs = require('ejs');
 var html = require('html');
 var mysql = require('mysql');
 var http = require('http');
+var user = require('./User');
+var foodRequests = require('./Request')
+var bodyParser = require('body-parser')
 
-var connection = mysql.createConnection({
-  host     : 'classroom.cs.unc.edu',
-  user     : 'shrivar',
-  password : 'secret',
-  database : 'shrivardb'
-});
 
+var exports = module.exports = {}
 
 var app = express();
 
@@ -20,15 +18,10 @@ app.use(express.static(__dirname + '/views'));
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
-//connecting to mysql database
-connection.connect(function(err) {
-  if (err) {
-    console.error('error connecting: ' + err.stack);
-    return;
-  }
-
-  console.log('connected as id ' + connection.threadId);
-});
+app.use( bodyParser.json() );       // to support JSON-encoded bodies
+app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
+  extended: true
+})); 
 
 app.use(stormpath.init(app, {
   client: {
@@ -67,15 +60,10 @@ app.use(stormpath.init(app, {
   
   postRegistrationHandler: function (account, req, res, next) {
 	//Put user data into our own mySQL database for ease of queries relating to requests objects
+	var newUser = new user.User(account.email, account.givenName,account.surname ,account.customData.Venmo, account.customData.phone);
+	newUser.saveUser();
 	
-	connection.query("INSERT IGNORE INTO TS_Users VALUES('" + account.email + "', '" + account.givenName + "', '" + account.surname + "', '" + account.customData.Venmo + "','" + account.customData.phone + "')"
-	, function(err, rows, fields) {
-		if (err) 
-			throw err;
-		
-		next();
-	}
-  );
+	next();
 }
 	
 	,
@@ -83,8 +71,15 @@ app.use(stormpath.init(app, {
 }));
 
 app.get('/', function(req, res) {
+  var shrivar = new user.User("shrivar@gmail.com");
+  //console.log()
   res.render('anastasia');
 });
+
+app.get('/getAllRequests', function(req, res) {
+  //Requests.getAllOpenRequests();
+});
+
 
 app.use('/profile',stormpath.loginRequired,require('./profile')()); 
 
@@ -95,3 +90,24 @@ app.use('/submit_request',stormpath.loginRequired,require('./submit_request')())
 app.on('stormpath.ready',function(){
   app.listen(3000);
 });
+
+app.get('/getAllOpenRequests', function(req,res)
+{
+    //getAllOpenRequests(req,res)
+});
+
+app.get('/getReqestsByRequester', function (req,res)
+{
+    //getRequestsByRequester(req.user.username, req, res); //gets current user from stormpath session
+});
+
+//expose this function via exports
+exports.OpenRequestsReciever = function (openRequests, req, res)
+{
+    res.send(openRequests);
+}
+
+exports.RequestsByRequesterReciever = function (userRequest, req, res)
+{
+    res.send(userRequest);
+}
