@@ -1,0 +1,47 @@
+@import url('http://fonts.googleapis.com/css?family=Grand+Hotel');
+@import url('http://fonts.googleapis.com/css?family=Imprima');
+
+
+body{
+	color: black;
+	font-family: 'Imprima', 'Trebuchet MS', sans-serif;
+	font-size:20px;
+	height: 100%;
+	background:#A3C7E1;
+	background-image: url("bike.jpg");
+		background-attachment: fixed;
+}
+
+
+#title{
+	margin-top: -20px;
+	margin-bottom: 30px;
+}
+.jumbotron{
+	margin-bottom: 80px;
+}
+
+.jumbotron img{
+	width: 50%;	
+	margin-bottom: 30px;
+	border-radius: 30px;
+}
+
+#title h1{
+	font-family: 'Grand Hotel', 'Trebuchet MS', sans-serif;
+	text-align: center;
+	color: white;
+	font-size: 90px;  
+	text-shadow: 6px 4px black;
+    padding: 35px 25px;
+    letter-spacing: 8px;
+}
+
+#title i{
+    text-shadow: 3px 2px inherit;
+}
+
+#title:hover{
+	cursor: pointer;
+    text-shadow: 6px 4px black;
+}
