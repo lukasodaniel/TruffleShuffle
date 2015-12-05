@@ -86,6 +86,16 @@ app.get('/', function(req, res) {
   res.render('anastasia');
 });
 
+app.get('/submitRequest', function(req, res) {
+  res.render('submitRequest');
+});
+
+
+app.get('/currentRequests', function(req, res) {
+  res.render('currentRequests');
+});
+
+
 app.use('/profile',stormpath.loginRequired,require('./profile')()); 
 
 app.use('/open_requests',stormpath.loginRequired,require('./open_requests')()); 
