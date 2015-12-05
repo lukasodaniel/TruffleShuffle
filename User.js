@@ -6,26 +6,22 @@ var connection = mysql.createConnection({
   database : 'shrivardb'
 });
 
-//Private
-var privateVariable = true;
-
 //Public
-module.exports = User;
-function User(email,firstName, lastName, venmo, phone) {
+var User = function (email,firstName, lastName, venmo, phone) {
 	
-	
+
 	switch(arguments.length)
 	{
-		case 1:		//If only the email is given as an argument, we lookup a user currently in the database 
-					//with the specified email
+		case 1:		//
 			connection.query("SELECT * FROM TS_Users WHERE Email='" + email + "'"
-			, function(err, rows, fields) {
+			, function(err, rows, fields) {	
 				if (err) 
 				{
 					throw err;
 				}
-					
+
 				else
+				{
 					this.email = rows[0].Email;
 					this.firstName = rows[0]["First Name"];
 					this.lastName = rows[0]["Last Name"];
@@ -33,7 +29,7 @@ function User(email,firstName, lastName, venmo, phone) {
 					this.venmo = rows[0]["Venmo Username"];
 				}
 				
-			);
+			});
 			break;
 			
 		case 5: 	//If all 5 arguments are given, create a new user
@@ -47,9 +43,12 @@ function User(email,firstName, lastName, venmo, phone) {
 	
 }
 
+module.exports.User = User;
+
 User.prototype.saveUser = function()		//Add a row to the user email with current information 
+//COMBINE SAVE AND UPDATE FUNCTIONS
 {
-	connection.query("INSERT IGNORE INTO TS_Users VALUES('" + connection.escape(this.email) + "', '" + connection.escape(this.firstName) + "', '" + connection.escape(this.lastName) + "', '" + connection.escape(this.venmo) + "','" + connection.escape(this.phone) + "')"
+	connection.query("INSERT IGNORE INTO TS_Users VALUES(?,?,?,?,?)", [this.email, this.firstName, this.lastName, this.venmo, this.phoneNumber]
 	, function(err, rows, fields) {
 		if (err) 
 			throw err;
@@ -59,9 +58,10 @@ User.prototype.saveUser = function()		//Add a row to the user email with current
 	);
 }
 
+
 function updateUser()
 {
-	connection.query("UPDATE TS_Users SET FirstName=?, LastName=?, VenmoUserName=?, PhoneNumber=?",[this.firstName, this.lastName, this.venmo, this.phoneNumber], 
+	connection.query("UPDATE TS_Users SET FirstName=?, LastName=?, VenmoUserName=?, PhoneNumber=? WHERE Email=?",[this.firstName, this.lastName, this.venmo, this.phoneNumber, this.email], 
 	function(err, rows, fields) {
 		if (err) 
 		{
