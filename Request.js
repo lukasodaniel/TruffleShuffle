@@ -110,8 +110,22 @@ var getAllOpenRequests = function(currentUser,req, res)
 	);
 }
 
+var pickupOrder = function (id)
+{
+	connection.query("UPDATE TS_Requests SET OrderStatus=? WHERE id=?",["active",id], 
+	function(err, rows, fields) {
+		if (err) 
+		{
+			throw err;
+		}
+		
+	}
+	);
+}
+
 module.exports.getAllOpenRequests = getAllOpenRequests;
 module.exports.getRequestsByRequester = getRequestsByRequester;
+module.exports.pickupOrder = pickupOrder;
 
 Request.prototype.getRequesterInfo = function()
 {
@@ -125,6 +139,8 @@ Request.prototype.getRequesterInfo = function()
 		}
 	);
 }
+
+
 
 Request.prototype.getRequester = function()
 {

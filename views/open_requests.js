@@ -1,25 +1,74 @@
 $(document).ready(function () {
     var data = new Array();
-    var restaurant = $.get("/getRestaurants");
-    console.log(restaurant);
+    var restaurants = getRestaurants();
     out = $.getJSON("getAllOpenRequests", function(jd){
         for(i in jd){
             data[i] = jd[i];
-            console.log(jd[i]);
             var row = $('<tr></tr>');
+            var address = $('<td style="padding-left:2%; font-style:italic">'+data[i].DeliveryAddress+'</td>');
+            var restaurant = $('<td>'+restaurants[data[i]['RestaurantID']].name+'</td>');
             var details = $('<td style="padding-left:2%;">'+data[i].OrderDetails+'</td>');
             var requester = $('<td style="padding-left:2%;">'+data[i].Requester+'</td>');
-            var address = $('<td style="padding-left:2%; font-style:italic">'+data[i].DeliveryAddress+'</td>');
-            var pickupButton = $('<td><button style="color: #F7A48D; background: none; margin: 2%; border: none;">Take Order</button></td>')
+            var pickupButtonEntry = $('<td></td>')
+            var pickupButton = $('<td><button id='+data[i].id+' style="color: #F7A48D; background: none; margin: 2%; border: none;">Take Order</button></td>')
+            var button = $('<button id='+data[i].id+'>Take Order</button>');
+            var id = data[i].id;
+            
 
             $("#openRequests").append(row);
             row.append(requester);
+            row.append(restaurant);
             row.append(details);
             row.append(address);
             row.append(pickupButton);
+            //pickupButtonEntry.append(button);
+
+
+        }
+
+        $("button").click(function() {
+            $.ajax("/pickupOrder",
+                {
+                data : {
+                    id : $(this).attr('id')
+                    },
+                type : "POST",
+                success: function(data) {
+                    window.location = data.redirect
+                },
+                error: function() {
+                    alert("Unable to obtain restaurants")
+                }
+            });
+        });
+
+    });
+    
+
+    
+    
+});
+var getRestaurants = function () {
+    var json = null;
+    $.ajax({
+        'async': false,
+        'global': false,
+        'url': 'getRestaurants',
+        'dataType': "json",
+        'success': function (data) {
+            //console.log(data);
+            json = data;
         }
     });
-    console.log(data);
-    //console.log(out.responseJSON);
-});
+    var out = new Object();
+    for(var i = 0; i < json.length; i++){
+        var id = json[i]['id'];
+        out[id] = json[i];
+    }
+    return out;
+}
+
+var takeOrder = function(orderId){
+    console.log(orderId)
+}
 
