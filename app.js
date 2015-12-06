@@ -5,7 +5,8 @@ var html = require('html');
 var mysql = require('mysql');
 var http = require('http');
 var user = require('./User');
-var foodRequests = require('./Request')
+var foodRequests = require('./Request');
+var Restaurants = require('./Restaurant');
 var bodyParser = require('body-parser')
 
 
@@ -69,13 +70,21 @@ app.use(stormpath.init(app, {
 }));
 
 app.get('/', function(req, res) {
-  var shrivar = new user.User("shrivar@gmail.com");
-  //console.log()
   res.render('anastasia');
 });
 
+app.use('/submitRequest', function(req, res) {
+  res.render('submitRequest');
+});
+
+
+app.use('/currentRequests', function(req, res) {
+  res.render('currentRequests');
+});
+
 app.get('/getAllRequests', function(req, res) {
-  //Requests.getAllOpenRequests();
+  foodRequests.getAllOpenRequests();
+
 });
 
 
@@ -91,24 +100,47 @@ app.on('stormpath.ready',function(){
 
 app.get('/getAllOpenRequests', function(req,res)
 {
-    foodRequests.getAllOpenRequests(req,res)
+    foodRequests.getAllOpenRequests(req.user.username,req,res) 
 });
 
 app.get('/getReqestsByRequester', function (req,res)
 {
-    //getRequestsByRequester(req.user.username, req, res); //gets current user from stormpath session
+    foodRequests.getRequestsByRequester(req.user.username, req, res); //gets current user from stormpath session
 });
 
-//expose this function via exports
 
-var test = function (openRequests, req, res)
+app.get('/getRestaurants', function (req,res)
+{
+  Restaurants.getAllRestauraunts(req,res);
+})
+
+app.post('/submitRequestForm', function (req,res)
+{
+    var address = req.body.address1 + " " + req.body.address2 + " " + req.body.address3
+    var currentRequest = new foodRequests.Request(req.user.username, null,"open",req.body.restaurantSelection,
+        req.body.message,address, req.body.selection);
+
+    currentRequest.saveRequest();
+    res.render('anastasia');
+}); 
+
+var OpenRequestsReciever = function (openRequests, req, res)
 {
     res.send(openRequests);
 }
 
-module.exports.OpenRequestsReciever = test ;
 
-module.exports.RequestsByRequesterReciever = function (userRequest, req, res)
+
+var RequestsByRequesterReciever = function (userRequest, req, res)
 {
     res.send(userRequest);
 }
+
+var RestaurantsReciever = function (Restaurants, req, res)
+{
+  res.send(Restaurants);
+}
+
+module.exports.RequestsByRequesterReciever  = RequestsByRequesterReciever
+module.exports.OpenRequestsReciever = OpenRequestsReciever;
+module.exports.RestaurantsReciever = RestaurantsReciever;

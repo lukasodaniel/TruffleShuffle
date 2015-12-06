@@ -1,0 +1,86 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet"/>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.js"></script>
+	<script type="text/javascript" src="animation.js"></script>    
+	<script src="http://connect.soundcloud.com/sdk.js"></script>
+	<script type="text/javascript" src="thejspart.js"></script>
+	<script type="text/javascript" src="RequestForm.js"></script>
+	
+	<title>Truffle Shuffle</title>
+  </head>
+  <body>
+		<div id="title">
+			<h1><a href="/">Truffle Shuffle</a><br>
+			<!--<i style="font-size:80%" class="fa fa-cutlery"></i><i class="fa fa-bicycle"></i><i class="fa fa-child"></i>-->
+			</h1>		
+		</div>
+		<div id="loginInfo">
+				Username: <input size="15" type="username" class="form-control" id="username" placeholder="Enter your username">
+				Password: <input size="15" type="password" class="form-control" id="password" placeholder="Enter your password">
+				<a href="/login" class="btn btn-primary">Login</a><h6 style="display:inline"><a href="#">Forgot password?</a></h6>
+		</div>
+    <div class="container">
+      <div class="jumbotron">
+		<div id="topbar">
+			<ul>
+				<li><a href="/currentRequests">view active requests</a></li>
+				<li>request delivery</li>
+				<li>track request</li>
+				<li>nearby restaurants</li>
+			</ul>
+		</div>
+		<div id ="submitRequest">
+<form action="submitRequestForm" method="post" class="basic-grey">
+    <h1>Order Form 
+        <span>Please fill all the texts in the fields.</span>
+    </h1>
+	<label>
+        <span>Order from :</span><select name="restaurantSelection">     
+        </select>
+    </label>  
+	<label>
+        <span>Order Details :</span>
+        <textarea id="food" name="food" placeholder="eg. 1 Bacon Cheeseburger Medium Combo. Lemon in sweet tea, no pickles in burger. 1 Broccoli Cheese Baked Potato."></textarea>
+    </label> 
+	<label>
+        <span>Deliver to :</span>
+        <input id="address1" type="text" name="address1" placeholder="Address" />
+		<span>&nbsp;&nbsp;&nbsp;&nbsp;</span><input id="address2" type="text" name="address2" placeholder="Building Name & Room Number" />
+		<span>&nbsp;&nbsp;&nbsp;&nbsp;</span><input id="address3" type="text" name="address3" placeholder="City, State, Zip Code" />
+    </label>
+	<label>
+        <span>Venmo Username :</span>
+        <input id="venmo" type="text" name="venmo" placeholder="(If applicable)" />
+    </label> 
+	<label>
+        <span>Method of Payment :</span><select name="selection">
+        <option value="Cash">Cash</option>
+        <option value="Venmo">Venmo</option>
+        </select>
+    </label>    
+    <label>
+        <span>Delivery Instructions :</span>
+        <textarea id="message" name="message" placeholder="eg. Meet at building entrance. Please call when you get here."></textarea>
+    </label> 
+     <label>
+        <span>&nbsp;</span> 
+        <input type="submit" class="button" value="Send" /> 
+    </label>    
+</form>
+		</div>
+		
+	</div>
+    </div>
+	<footer>
+	<h1 id="truffleShuffleBoy"><i class="fa fa-hashtag" ></i>FIRSTYOUGOTTADOTHETRUFFLESHUFFLE</h1>
+	</footer>
+  </body>
+</html>

@@ -9,7 +9,7 @@ body{
 	font-size:20px;
 	height: 100%;
 	background:#A3C7E1;
-	background-image: url("bike1.jpg");
+	background-image: url("imgs/bike1.jpg");
 	background-attachment: fixed;
 	background-size: cover;
 }
@@ -37,7 +37,7 @@ body{
 
 
 #foodPic{
-	background-image: url("food.jpg");
+	background-image: url("imgs/food.jpg");
 	background-size: cover;
 	margin: 30px 0;
 	height: 400px;
@@ -47,6 +47,7 @@ body{
 .jumbotron{
 	margin-bottom: 80px;
 	box-shadow: 3px 3px 10px black;
+	min-height: 700px;
 }
 
 .jumbotron img{
@@ -65,12 +66,17 @@ body{
     letter-spacing: 8px;
 }
 
+#title a{
+	text-decoration:none;
+	color: inherit;
+}
+
 #loginInfo{
 	float: right;
 	z-index: 1;
 	background: #EEEEEE;
 	padding: 20px;
-	width: 250px;
+	width: 200px;
 	height: 220px;
 	border-top-left-radius: 15px;
 	border-bottom-left-radius: 15px;
@@ -111,6 +117,11 @@ body{
 	text-shadow: 5px 5px 20px lightskyblue;
 }
 
+#topbar a{
+	text-decoration: none;
+	color: inherit;
+}
+
 .btn-primary{
 	background: linear-gradient(#f6c4a2,pink);
 	color: black;
@@ -143,4 +154,91 @@ footer{
 	letter-spacing: 1px;
 	text-transform: lowercase;
 	font-family: 'Crete Round', Tahoma, sans-serif;
+}
+
+/* Basic Grey */
+.basic-grey {
+    margin-left:auto;
+    margin-right:auto;
+    background: #F7F7F7;
+	font-size: 18px;
+    padding: 25px 15px 25px 10px;
+    color: black;
+    text-shadow: 1px 1px 1px #FFF;
+    border:1px solid #E4E4E4;
+	border-radius: 10px;
+}
+.basic-grey h1 {
+    font-size: 35px;
+    padding: 0px 0px 10px 40px;
+    display: block;
+    border-bottom:1px solid #E4E4E4;
+    margin: -10px -15px 30px -10px;
+    color: black;
+}
+.basic-grey h1>span {
+    display: block;
+    font-size: 14px;
+}
+.basic-grey label {
+    display: block;
+    margin: 0px;
+}
+.basic-grey label>span {
+    float: left;
+    width: 20%;
+    text-align: right;
+    padding-right: 10px;
+    margin-top: 10px;
+    color: black;
+}
+.basic-grey input[type="text"], .basic-grey input[type="email"], .basic-grey textarea, .basic-grey select {
+    border: 1px solid #DADADA;
+    height: 30px;
+    margin-bottom: 16px;
+    margin-right: 6px;
+    margin-top: 2px;
+    outline: 0 none;
+    padding: 3px 3px 3px 8px;
+    width: 70%;
+    font-size: 15px;
+    line-height:15px;
+    box-shadow: inset 0px 1px 4px #ECECEC;
+    -moz-box-shadow: inset 0px 1px 4px #ECECEC;
+    -webkit-box-shadow: inset 0px 1px 4px #ECECEC;
+}
+.basic-grey textarea{
+    padding: 5px 3px 3px 5px;
+}
+.basic-grey select {
+    background: #FFF url('down-arrow.png') no-repeat right;
+    background: #FFF url('down-arrow.png') no-repeat right);
+    appearance:none;
+    -webkit-appearance:none; 
+    -moz-appearance: none;
+    text-indent: 0.01px;
+    text-overflow: '';
+    width: 70%;
+    height: 35px;
+    line-height: 25px;
+}
+.basic-grey textarea{
+    height:100px;
+}
+.basic-grey .button {
+    background: salmon;
+    border: none;
+	margin-top: 10px;
+    padding: 5px 15px 5px 15px;
+    color: white;
+    box-shadow: 1px 1px 5px #B6B6B6;
+    border-radius: 3px;
+    cursor: pointer;
+}
+.basic-grey .button:hover {
+    background: #f6c4a2;
+}
+
+#submitRequest{
+	margin-top: 30px;
 }

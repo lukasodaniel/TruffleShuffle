@@ -1,4 +1,6 @@
-var mainapp = require('./app');
+var mainapp = require('./app.js');
+var user = require('./User');
+var Restaurant = require('./Restaurant')
 
 var mysql = require('mysql');
 var connection = mysql.createConnection({
@@ -9,14 +11,45 @@ var connection = mysql.createConnection({
 });
 
 
-var Request = function(requester, deliverer, orderStatus, restaurantID, orderDetails, deliveryAddress) {
+var Request = function(requester, deliverer, orderStatus, restaurantID, orderDetails, deliveryAddress, paymentMethod) {
 	
-			this.requester = requester;
-			this.deliverer = deliverer;
-			this.orderStatus = orderStatus;
-			this.restaurantID = restaurantID;
-			this.orderDetails = orderDetails;
-			this.deliveryAddress = deliveryAddress;
+			switch(arguments.length)
+			{
+			case 1:		//If only 1 parameter is given, we ASSUME THAT IT IS AN ID, and return the request matching the given ID
+			connection.query("SELECT * FROM TS_Requests WHERE id='" + requester + "'"
+			, function(err, rows, fields) {	
+				if (err) 
+				{
+					throw err;
+				}
+
+				else
+				{
+					this.RequestID = rows[0].id;
+					this.requester = rows[0].Requester;
+					this.deliverer = rows[0].Deliverer;
+					this.orderStatus = rows[0].OrderStatus;
+					this.restaurantID = rows[0].RestaurantID;
+					this.orderDetails = rows[0].OrderDetails;
+					this.deliveryAddress = rows[0].DeliveryAddress;
+					this.paymentMethod = rows[0].DeliveryAddress;
+				}
+				
+			});
+			break;
+			
+		case 7: 	//If all 5 arguments are given, create a new user
+				this.requester = requester;
+				this.deliverer = deliverer;
+				this.orderStatus = orderStatus;
+				this.restaurantID = restaurantID;
+				this.orderDetails = orderDetails;
+				this.deliveryAddress = deliveryAddress;
+				this.paymentMethod = paymentMethod;
+				break;
+			}
+
+
 	
 }
 
@@ -25,7 +58,7 @@ module.exports.Request = Request;
 Request.prototype.saveRequest = function()		//Add a row to the user email with current information 
 //Combine save and update? Action on duplicate?
 {
-	connection.query("INSERT INTO TS_Requests VALUES(NULL, ?,?,?,?,?,?)", [this.requester, this.deliverer, this.orderStatus, this.restaurantID, this.orderDetails, this.deliveryAddress]
+	connection.query("INSERT INTO TS_Requests VALUES(NULL, ?,?,?,?,?,?,?)", [this.requester, this.deliverer, this.orderStatus, this.restaurantID, this.orderDetails, this.deliveryAddress, this.paymentMethod]
 	, function(err, rows, fields) {
 		if (err) 
 			throw err;
@@ -37,7 +70,7 @@ Request.prototype.saveRequest = function()		//Add a row to the user email with c
 
 function updateRequest()
 {
-	connection.query("UPDATE TS_Requests SET Requester=?, Deliverer=?, OrderStatus=?, RestaurantID=?, OrderDetails=?, DeliveryAddress=?",[this.requester, this.deliverer, this.orderStatus, this.restaurantID, this.orderDetails, this.deliveryAddress], 
+	connection.query("UPDATE TS_Requests SET Requester=?, Deliverer=?, OrderStatus=?, RestaurantID=?, OrderDetails=?, DeliveryAddress=?, PaymentMethod=?",[this.requester, this.deliverer, this.orderStatus, this.restaurantID, this.orderDetails, this.deliveryAddress, this.paymentMethod], 
 	function(err, rows, fields) {
 		if (err) 
 		{
@@ -52,7 +85,7 @@ function updateRequest()
 
  var getRequestsByRequester = function(requesterEmail,req, res)
 {
-	connection.query("SELECT * FROM TS_Requests WHERE Email=?", [requesterEmail]
+	connection.query("SELECT * FROM TS_Requests WHERE (Requester=? OR Deliverer=?) AND (NOT OrderStatus=?)", [requesterEmail, requesterEmail,"closed"]
 	, function(err, rows, fields) {
 		if (err) 
 			throw err;
@@ -63,9 +96,10 @@ function updateRequest()
 	);
 }
 
-var getAllOpenRequests = function(req, res)
+var getAllOpenRequests = function(currentUser,req, res)
 {
-	connection.query("SELECT * FROM TS_Requests WHERE OrderStatus=?", ["open"]
+
+	connection.query("SELECT * FROM TS_Requests WHERE OrderStatus=? AND (NOT Requester = ?)", ["open", currentUser]
 	, function(err, rows, fields) {
 		if (err) 
 			throw err;
@@ -78,6 +112,19 @@ var getAllOpenRequests = function(req, res)
 
 module.exports.getAllOpenRequests = getAllOpenRequests;
 module.exports.getRequestsByRequester = getRequestsByRequester;
+
+Request.prototype.getRequesterInfo = function()
+{
+	connection.query("SELECT * FROM TS_Users WHERE Email=?", [this.requester]
+	, function(err, rows, fields) {
+		if (err) 
+			throw err;
+		
+			//call a function in app.js, which will then 
+			//mainapp.RequestsByRequesterReciever(rows, req, res);
+		}
+	);
+}
 
 Request.prototype.getRequester = function()
 {
@@ -103,6 +150,11 @@ Request.prototype.getOrderDetails = function()
 Request.prototype.getDeliveryAddress = function()
 {
 	return this.deliveryAddress;
+}
+
+Request.prototype.getPaymentMethod = function()
+{
+	return this.paymentMethod;
 }
 
 Request.prototype.setRequester = function(requester)
@@ -137,3 +189,8 @@ Request.prototype.setDeliveryAddress = function(deliveryAddress)
 	updateRequest();
 }
 
+Request.prototype.setPaymentMethod = function(paymentMethod)
+{
+	this.paymentMethod = paymentMethod;
+	updateRequest();
+}
