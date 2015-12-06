@@ -1,4 +1,4 @@
-var mainapp = require('./app');
+var mainapp = require('./app.js');
 
 var mysql = require('mysql');
 var connection = mysql.createConnection({
@@ -11,12 +11,40 @@ var connection = mysql.createConnection({
 
 var Request = function(requester, deliverer, orderStatus, restaurantID, orderDetails, deliveryAddress) {
 	
-			this.requester = requester;
-			this.deliverer = deliverer;
-			this.orderStatus = orderStatus;
-			this.restaurantID = restaurantID;
-			this.orderDetails = orderDetails;
-			this.deliveryAddress = deliveryAddress;
+			switch(arguments.length)
+	{
+		case 1:		//If only 1 parameter is given, we ASSUME THAT IT IS AN ID, and return the request matching the given ID
+			connection.query("SELECT * FROM TS_Requests WHERE id='" + requester + "'"
+			, function(err, rows, fields) {	
+				if (err) 
+				{
+					throw err;
+				}
+
+				else
+				{
+					this.requester = rows[0].Requester;
+					this.deliverer = rows[0].Deliverer;
+					this.orderStatus = rows[0].OrderStatus;
+					this.restaurantID = rows[0].RestaurantID;
+					this.orderDetails = rows[0].OrderDetails;
+					this.deliveryAddress = rows[0].DeliveryAddress;
+				}
+				
+			});
+			break;
+			
+		case 5: 	//If all 5 arguments are given, create a new user
+				this.requester = requester;
+				this.deliverer = deliverer;
+				this.orderStatus = orderStatus;
+				this.restaurantID = restaurantID;
+				this.orderDetails = orderDetails;
+				this.deliveryAddress = deliveryAddress;
+				break;
+			}
+
+
 	
 }
 
@@ -65,6 +93,8 @@ function updateRequest()
 
 var getAllOpenRequests = function(req, res)
 {
+
+	console.log(mainapp)
 	connection.query("SELECT * FROM TS_Requests WHERE OrderStatus=?", ["open"]
 	, function(err, rows, fields) {
 		if (err) 

@@ -1,3 +1,5 @@
+var mainapp = require('./app.js');
+
 var mysql = require('mysql');
 var connection = mysql.createConnection({
   host     : 'classroom.cs.unc.edu',
@@ -11,8 +13,7 @@ var Restaurant = function (name, address) {
 	
 
 	switch(arguments.length)
-	{
-			
+	{		
 		case 2: 	//If all 5 arguments are given, create a new user
 				this.name = name;
 				this.address = address;
@@ -36,7 +37,23 @@ Restaurant.prototype.save = function()		//Add a row to the user email with curre
 	);
 }
 
-
+var getAllRestauraunts = function (req,res)
+{
+	connection.query("SELECT TS_Restaurants.name From TS_Restaurants"
+	, function(err, rows, fields) {
+		if (err) 
+		{
+			throw err;
+		}
+		else
+		{
+			mainapp.RestaurantsReciver(rows, req, res);
+		}
+		
+		}
+	);
+}
+module.exports.getAllRestauraunts = getAllRestauraunts;
 // function update()
 // {
 // 	connection.query("UPDATE TS_Restaurants SET FirstName=?, LastName=?, VenmoUserName=?, PhoneNumber=? WHERE Email=?",[this.firstName, this.lastName, this.venmo, this.phoneNumber, this.email], 
