@@ -108,6 +108,11 @@ app.get('/getReqestsByRequester', function (req,res)
     foodRequests.getRequestsByRequester(req.user.username, req, res); //gets current user from stormpath session
 });
 
+app.post('/pickupOrder', function (req,res)
+{
+    //var orderID = req.body.orderID
+    foodRequests.pickupOrder(orderID)
+});
 
 app.get('/getRestaurants', function (req,res)
 {
