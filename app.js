@@ -79,7 +79,7 @@ app.use('/submitRequest', function(req, res) {
 
 
 app.use('/currentRequests', function(req, res) {
-  res.render('currentRequests');
+  res.render('open_requests');
 });
 
 app.get('/getAllRequests', function(req, res) {
@@ -110,8 +110,10 @@ app.get('/getReqestsByRequester', function (req,res)
 
 app.post('/pickupOrder', function (req,res)
 {
-    //var orderID = req.body.orderID
-    foodRequests.pickupOrder(orderID)
+    //console.log(req.body.id);
+    var orderID = req.body.id
+    foodRequests.pickupOrder(orderID);
+    res.send({redirect: '/'});
 });
 
 app.get('/getRestaurants', function (req,res)
@@ -126,7 +128,10 @@ app.post('/submitRequestForm', function (req,res)
         req.body.message,address, req.body.selection);
 
     currentRequest.saveRequest();
-    res.render('anastasia');
+   
+    res.redirect('/');
+    //res.send({redirect: '/'});
+    //res.render('anastasia');
 }); 
 
 var OpenRequestsReciever = function (openRequests, req, res)

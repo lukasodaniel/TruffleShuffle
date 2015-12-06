@@ -125,6 +125,7 @@ var pickupOrder = function (id)
 
 module.exports.getAllOpenRequests = getAllOpenRequests;
 module.exports.getRequestsByRequester = getRequestsByRequester;
+module.exports.pickupOrder = pickupOrder;
 
 Request.prototype.getRequesterInfo = function()
 {
