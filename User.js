@@ -1,3 +1,5 @@
+var mainapp = require('./app.js');
+
 var mysql = require('mysql');
 var connection = mysql.createConnection({
   host     : 'classroom.cs.unc.edu',

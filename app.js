@@ -5,11 +5,10 @@ var html = require('html');
 var mysql = require('mysql');
 var http = require('http');
 var user = require('./User');
-var foodRequests = require('./Request')
+var foodRequests = require('./Request');
+var Restaurants = require('./Restaurant');
 var bodyParser = require('body-parser')
 
-
-var exports = module.exports = {}
 
 var app = express();
 
@@ -72,12 +71,13 @@ app.use(stormpath.init(app, {
 
 app.get('/', function(req, res) {
   var shrivar = new user.User("shrivar@gmail.com");
+  //console.log(req.user)
   //console.log()
   res.render('anastasia');
 });
 
 app.get('/getAllRequests', function(req, res) {
-  //Requests.getAllOpenRequests();
+  foodRequests.getAllOpenRequests();
 });
 
 
@@ -93,7 +93,8 @@ app.on('stormpath.ready',function(){
 
 app.get('/getAllOpenRequests', function(req,res)
 {
-    //getAllOpenRequests(req,res)
+  //console.log(foodRequests)
+    foodRequests.getAllOpenRequests(req,res) 
 });
 
 app.get('/getReqestsByRequester', function (req,res)
@@ -101,13 +102,28 @@ app.get('/getReqestsByRequester', function (req,res)
     //getRequestsByRequester(req.user.username, req, res); //gets current user from stormpath session
 });
 
+app.get('getRestaurants', function (req,res)
+{
+  Restaurants.getAllRestaurants(req,res);
+})
+
 //expose this function via exports
-exports.OpenRequestsReciever = function (openRequests, req, res)
+var OpenRequestsReciever = function (openRequests, req, res)
 {
     res.send(openRequests);
 }
 
-exports.RequestsByRequesterReciever = function (userRequest, req, res)
+
+var RequestsByRequesterReciever = function (userRequest, req, res)
 {
     res.send(userRequest);
 }
+
+var RestaurantsReciver = function (Restaurants, req, res)
+{
+  res.send(Restaurants);
+}
+
+module.exports.RequestsByRequesterReciever  = RequestsByRequesterReciever
+module.exports.OpenRequestsReciever = OpenRequestsReciever;
+module.exports.RestaurantsReciver = RestaurantsReciver;
