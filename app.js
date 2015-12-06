@@ -70,9 +70,6 @@ app.use(stormpath.init(app, {
 }));
 
 app.get('/', function(req, res) {
-  var shrivar = new user.User("shrivar@gmail.com");
-  //console.log(req.user)
-  //console.log()
   res.render('anastasia');
 });
 
@@ -93,13 +90,12 @@ app.on('stormpath.ready',function(){
 
 app.get('/getAllOpenRequests', function(req,res)
 {
-  //console.log(foodRequests)
     foodRequests.getAllOpenRequests(req,res) 
 });
 
 app.get('/getReqestsByRequester', function (req,res)
 {
-    //getRequestsByRequester(req.user.username, req, res); //gets current user from stormpath session
+    foodRequests.getRequestsByRequester(req.user.username, req, res); //gets current user from stormpath session
 });
 
 app.get('getRestaurants', function (req,res)
@@ -107,7 +103,6 @@ app.get('getRestaurants', function (req,res)
   Restaurants.getAllRestaurants(req,res);
 })
 
-//expose this function via exports
 var OpenRequestsReciever = function (openRequests, req, res)
 {
     res.send(openRequests);
