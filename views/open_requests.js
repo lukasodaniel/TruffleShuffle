@@ -4,16 +4,13 @@ $(document).ready(function () {
     out = $.getJSON("getAllOpenRequests", function(jd){
         for(i in jd){
             data[i] = jd[i];
-            //console.log(jd[i]);
             var row = $('<tr></tr>');
             var address = $('<td>'+data[i].DeliveryAddress+'</td>');
-            //console.log(restaurants[data[i]['RestaurantID']])
             var restaurant = $('<td>'+restaurants[data[i]['RestaurantID']].name+'</td>');
             var details = $('<td>'+data[i].OrderDetails+'</td>');
             var requester = $('<td>'+data[i].Requester+'</td>');
             var pickupButtonEntry = $('<td></td>')
             var button = $('<button id='+data[i].id+'>Take Order</button>');
-            console.log(data[i].id);
             var id = data[i].id;
 
             $("#openRequests").append(row);
@@ -28,7 +25,19 @@ $(document).ready(function () {
         }
 
         $("button").click(function() {
-            $.ajax("");
+            $.ajax("/pickupOrder",
+                {
+                data : {
+                    id : $(this).attr('id')
+                    },
+                type : "POST",
+                success: function(data) {
+                    window.location = data.redirect
+                },
+                error: function() {
+                    alert("Unable to obtain restaurants")
+                }
+            });
         });
 
     });

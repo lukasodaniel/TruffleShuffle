@@ -38,7 +38,7 @@ var User = function (email,firstName, lastName, venmo, phone) {
 				this.firstName = firstName;
 				this.lastName = lastName;
 				this.email = email;
-				this.phoneNumber = phoneNumber;
+				this.phoneNumber = phone;
 				this.venmo = venmo;
 			break;
 	}
