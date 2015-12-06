@@ -9,8 +9,6 @@ var foodRequests = require('./Request')
 var bodyParser = require('body-parser')
 
 
-var exports = module.exports = {}
-
 var app = express();
 
 //Staticly serve js and css files, also use the ejs template engine which allows the rendering of raw html, although the file extensions remains as .ejs
@@ -93,7 +91,7 @@ app.on('stormpath.ready',function(){
 
 app.get('/getAllOpenRequests', function(req,res)
 {
-    //getAllOpenRequests(req,res)
+    foodRequests.getAllOpenRequests(req,res)
 });
 
 app.get('/getReqestsByRequester', function (req,res)
@@ -102,12 +100,15 @@ app.get('/getReqestsByRequester', function (req,res)
 });
 
 //expose this function via exports
-exports.OpenRequestsReciever = function (openRequests, req, res)
+
+var test = function (openRequests, req, res)
 {
     res.send(openRequests);
 }
 
-exports.RequestsByRequesterReciever = function (userRequest, req, res)
+module.exports.OpenRequestsReciever = test ;
+
+module.exports.RequestsByRequesterReciever = function (userRequest, req, res)
 {
     res.send(userRequest);
 }
