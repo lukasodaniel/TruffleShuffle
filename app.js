@@ -100,7 +100,7 @@ app.on('stormpath.ready',function(){
 
 app.get('/getAllOpenRequests', function(req,res)
 {
-    foodRequests.getAllOpenRequests(req,res) 
+    foodRequests.getAllOpenRequests(req.user.username,req,res) 
 });
 
 app.get('/getReqestsByRequester', function (req,res)

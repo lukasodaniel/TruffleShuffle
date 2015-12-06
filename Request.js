@@ -1,4 +1,6 @@
 var mainapp = require('./app.js');
+var user = require('./User');
+var Restaurant = require('./Restaurant')
 
 var mysql = require('mysql');
 var connection = mysql.createConnection({
@@ -23,6 +25,7 @@ var Request = function(requester, deliverer, orderStatus, restaurantID, orderDet
 
 				else
 				{
+					this.RequestID = rows[0].id;
 					this.requester = rows[0].Requester;
 					this.deliverer = rows[0].Deliverer;
 					this.orderStatus = rows[0].OrderStatus;
@@ -82,7 +85,7 @@ function updateRequest()
 
  var getRequestsByRequester = function(requesterEmail,req, res)
 {
-	connection.query("SELECT * FROM TS_Requests WHERE Email=?", [requesterEmail]
+	connection.query("SELECT * FROM TS_Requests WHERE (Requester=? OR Deliverer=?) AND (NOT OrderStatus=?)", [requesterEmail, requesterEmail,"closed"]
 	, function(err, rows, fields) {
 		if (err) 
 			throw err;
@@ -93,10 +96,10 @@ function updateRequest()
 	);
 }
 
-var getAllOpenRequests = function(req, res)
+var getAllOpenRequests = function(currentUser,req, res)
 {
 
-	connection.query("SELECT * FROM TS_Requests WHERE OrderStatus=?", ["open"]
+	connection.query("SELECT * FROM TS_Requests WHERE OrderStatus=? AND (NOT Requester = ?)", ["open", currentUser]
 	, function(err, rows, fields) {
 		if (err) 
 			throw err;
@@ -109,6 +112,19 @@ var getAllOpenRequests = function(req, res)
 
 module.exports.getAllOpenRequests = getAllOpenRequests;
 module.exports.getRequestsByRequester = getRequestsByRequester;
+
+Request.prototype.getRequesterInfo = function()
+{
+	connection.query("SELECT * FROM TS_Users WHERE Email=?", [this.requester]
+	, function(err, rows, fields) {
+		if (err) 
+			throw err;
+		
+			//call a function in app.js, which will then 
+			//mainapp.RequestsByRequesterReciever(rows, req, res);
+		}
+	);
+}
 
 Request.prototype.getRequester = function()
 {
