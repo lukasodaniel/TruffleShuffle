@@ -1,63 +1,25 @@
 $(document).ready(function () {
     var data = new Array();
-    var restaurants = getRestaurants();
+    var restaurant = $.get("/getRestaurants");
+    console.log(restaurant);
     out = $.getJSON("getAllOpenRequests", function(jd){
         for(i in jd){
             data[i] = jd[i];
-            //console.log(jd[i]);
+            console.log(jd[i]);
             var row = $('<tr></tr>');
-            var address = $('<td>'+data[i].DeliveryAddress+'</td>');
-            //console.log(restaurants[data[i]['RestaurantID']])
-            var restaurant = $('<td>'+restaurants[data[i]['RestaurantID']].name+'</td>');
-            var details = $('<td>'+data[i].OrderDetails+'</td>');
-            var requester = $('<td>'+data[i].Requester+'</td>');
-            var pickupButtonEntry = $('<td></td>')
-            var button = $('<button id='+data[i].id+'>Take Order</button>');
-            console.log(data[i].id);
-            var id = data[i].id;
+            var details = $('<td style="padding-left:2%;">'+data[i].OrderDetails+'</td>');
+            var requester = $('<td style="padding-left:2%;">'+data[i].Requester+'</td>');
+            var address = $('<td style="padding-left:2%; font-style:italic">'+data[i].DeliveryAddress+'</td>');
+            var pickupButton = $('<td><button style="color: #F7A48D; background: none; margin: 2%; border: none;">Take Order</button></td>')
 
             $("#openRequests").append(row);
-            row.append(address);
-            row.append(restaurant);
             row.append(requester);
             row.append(details);
-            row.append(pickupButtonEntry);
-            pickupButtonEntry.append(button);
-
-
+            row.append(address);
+            row.append(pickupButton);
         }
-
-        $("button").click(function() {
-            $.ajax("");
-        });
-
     });
-    
-
-    
-    
+    console.log(data);
+    //console.log(out.responseJSON);
 });
-var getRestaurants = function () {
-    var json = null;
-    $.ajax({
-        'async': false,
-        'global': false,
-        'url': 'getRestaurants',
-        'dataType': "json",
-        'success': function (data) {
-            //console.log(data);
-            json = data;
-        }
-    });
-    var out = new Object();
-    for(var i = 0; i < json.length; i++){
-        var id = json[i]['id'];
-        out[id] = json[i];
-    }
-    return out;
-}
-
-var takeOrder = function(orderId){
-    console.log(orderId)
-}
 

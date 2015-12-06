@@ -4,23 +4,28 @@
     <title>Open Requests</title>
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet"/>
     <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
     <script src="open_requests.js"></script>
   </head>
   <body>
     <div class="container">
-      <div class="jumbotron">
-        <h1>Open Requests</h1>
-        <p>If you're in the area, chose one to fulfill</p>
-        <table id="openRequests" style="width:100%" border="solid; 1px">
-          <caption>Open Requests</caption>
+       <div class="jumbotron-requests col-lg-12 col-md-12 col-sm-12">
+      <div class="jumbotron" style="min-height:0px">
+        <div class="row">
+        <h1 id="openRequests-title">Open Requests</h1>
+        <p style="font-size:15px">If you're in the area, chose a request to fulfill</p>
+        </div>
+        <div class="row">
+        <table id="openRequests" style="width:100%;" border="solid 1px;">
           <tr>
-            <th>Delivery Address</th>
-            <th>Restaurant requested</th>
-            <th>Requester</th>
-            <th>Order Details</th>
-            <th>Pickup</th>
+            <th style="text-align:center;">Requester</th>
+            <th style="text-align:center;">Order Details</th>
+            <th style="text-align:center; font-weight:bold;">Delivery Address</th>
+            <th style="text-align:center;">Pickup</th>
           </tr>
         </table>
+        </div>
+        </div>
       </div>
     </div>
   </body>

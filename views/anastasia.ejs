@@ -14,38 +14,51 @@
 	<script type="text/javascript" src="thejspart.js"></script>
 	
 	<title>Truffle Shuffle</title>
+	</div>
   </head>
   <body>
-		<div id="title">
+	<div class="row">
+	  <div class="col-lg-12 col-md-12 col-sm-12" id="title">
 			<h1><a href="/">Truffle Shuffle</a><br>
 			<!--<i style="font-size:80%" class="fa fa-cutlery"></i><i class="fa fa-bicycle"></i><i class="fa fa-child"></i>-->
-			</h1>		
-		</div>
-		<div id="loginInfo">
-				Username: <input size="15" type="username" class="form-control" id="username" placeholder="Enter your username">
-				Password: <input size="15" type="password" class="form-control" id="password" placeholder="Enter your password">
-				<a href="/login" class="btn btn-primary">Login</a><h6 style="display:inline"><a href="#">Forgot password?</a></h6>
+			</h1>
+			</div>
 		</div>
     <div class="container">
-      <div class="jumbotron">
-		<div id="topbar">
-			<ul>
-				<li><a href="/currentRequests">view active requests</a></li>
-				<li><a href="/submitRequest">request delivery</a></li>
-				<li>track request</li>
-				<li>nearby restaurants</li>
-			</ul>
+	  
+	  <div class="col-lg-12 col-md-12 col-sm-12 jumbotron" style="padding-top:2%; margin-right:0%;">
+		<div class="row"><a href="/login?" class="btn btn-primary" style="margin-bottom:2%; margin-right: 0px; float: right;">Login</a>
+		<p><a href="/register" class="btn btn-primary" style="margin-bottom:2%; margin-right: 8px; float: right;">Register</a></p>
 		</div>
-		<div id="foodPic"></div>
+		<div class="row col-lg-12 col-md-12 col-sm-12" id="topbar">
+		  <div class="topbar-content">
+			<ul>
+				<li><a href="/open_requests">Open requests</a></li>
+				<li><a href="/submitRequest">Request delivery</a></li>
+				<li><a href="/track_request">Track request</a></li>
+				<li><a href="/restaurants">Restaurants' info</a></li>
+			</ul>
+			</div>
+		</div>
+		<div class="row col-lg-12 col-md-12 col-sm-12" id="foodPic" >
+		</div>
+		<div class="row col-lg-12 col-md-12 col-sm-12">
 			<p>Hungry but don't feel like leaving your house? Do you have time to kill and want to make some money?<br>
 			Truffle Shuffle is a peer-to-peer food delivery platform where you can both get food delivered
 			at a low price, and deliver food to another person at a fee which you get to decide! Let's get started!
 			</p>
-			<p><a href="/login" class="btn btn-primary">Login</a><a href="/register" class="btn btn-primary">Register</a></p>
+			
+			
+			</div>
       </div>
-    </div>
+	  </div>
+	  </div>
 	<footer>
-	<h1 id="truffleShuffleBoy"><i class="fa fa-hashtag" ></i>FIRSTYOUGOTTADOTHETRUFFLESHUFFLE</h1>
+	 <div class="row col-lg-12 col-md-12 col-sm-hidden id="truffleShuffleBoy">
+	<h1><i class="fa fa-hashtag"></i>UNCTruffleShuffle</h1>
+	</div>
 	</footer>
   </body>
 </html>
+<!-- Forgot password link-->
+<!-- <a href="#">Forgot password?</a>--> 
