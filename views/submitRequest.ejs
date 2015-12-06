@@ -12,6 +12,7 @@
 	<script type="text/javascript" src="animation.js"></script>    
 	<script src="http://connect.soundcloud.com/sdk.js"></script>
 	<script type="text/javascript" src="thejspart.js"></script>
+	<script type="text/javascript" src="RequestForm.js"></script>
 	
 	<title>Truffle Shuffle</title>
   </head>
@@ -37,41 +38,12 @@
 			</ul>
 		</div>
 		<div id ="submitRequest">
-<form action="" method="post" class="basic-grey">
+<form action="submitRequestForm" method="post" class="basic-grey">
     <h1>Order Form 
         <span>Please fill all the texts in the fields.</span>
     </h1>
-    <label>
-        <span>Your Name :</span>
-        <input id="name" type="text" name="name" placeholder="Your Full Name" />
-    </label>
-    
-    <label>
-        <span>Your Email :</span>
-        <input id="email" type="email" name="email" placeholder="Valid Email Address" />
-    </label>
 	<label>
-        <span>Contact Number :</span>
-        <input id="phone" type="text" name="phone" placeholder="Phone Number" />
-    </label>
-	<label>
-        <span>Order from :</span><select name="restaurantSelection">  
-			<option value="AlpineBagelCafe">Alpine Bagel Cafe</option>
-			<option value="LenoirMainstreet">Lenoir Mainstreet</option>
-			<option value="TheDailyGrind">The Daily Grind</option>
-			<option value="EspressOasisCafé">EspressOasis Café</option>
-			<option value="Wendy's">Wendy's</option>
-			<option value="JasmineMediterranean">Jasmine Mediterranean</option>
-			<option value="Buns">Buns</option>
-			<option value="MsMong">Ms Mong</option>
-			<option value="Spicy9">Spicy9</option>
-			<option value="Linda's">Linda's</option>
-			<option value="Bandidos">Bandidos</option>
-			<option value="Supdogs">SupDogs</option>
-			<option value="Suttons">Sutton's</option>
-			<option value="McDonalds">McDonald's</option>
-			<option value="BSkis">BSkis</option>
-			<option value="McAllister's">McAllister's</option>      
+        <span>Order from :</span><select name="restaurantSelection">     
         </select>
     </label>  
 	<label>
@@ -100,7 +72,7 @@
     </label> 
      <label>
         <span>&nbsp;</span> 
-        <input type="button" class="button" value="Send" /> 
+        <input type="submit" class="button" value="Send" /> 
     </label>    
 </form>
 		</div>

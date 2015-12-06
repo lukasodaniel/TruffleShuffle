@@ -39,7 +39,7 @@ Restaurant.prototype.save = function()		//Add a row to the user email with curre
 
 var getAllRestauraunts = function (req,res)
 {
-	connection.query("SELECT TS_Restaurants.name From TS_Restaurants"
+	connection.query("SELECT * From TS_Restaurants"
 	, function(err, rows, fields) {
 		if (err) 
 		{
@@ -47,7 +47,7 @@ var getAllRestauraunts = function (req,res)
 		}
 		else
 		{
-			mainapp.RestaurantsReciver(rows, req, res);
+			mainapp.RestaurantsReciever(rows, req, res);
 		}
 		
 		}

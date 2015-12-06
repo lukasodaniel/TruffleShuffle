@@ -108,10 +108,20 @@ app.get('/getReqestsByRequester', function (req,res)
     foodRequests.getRequestsByRequester(req.user.username, req, res); //gets current user from stormpath session
 });
 
-app.get('getRestaurants', function (req,res)
+app.get('/getRestaurants', function (req,res)
 {
-  Restaurants.getAllRestaurants(req,res);
+  Restaurants.getAllRestauraunts(req,res);
 })
+
+app.post('/submitRequestForm', function (req,res)
+{
+    var address = req.body.address1 + " " + req.body.address2 + " " + req.body.address3
+    var currentRequest = new foodRequests.Request(req.user.username, null,"open",req.body.restaurantSelection,
+        req.body.message,address, req.body.selection);
+
+    currentRequest.saveRequest();
+    res.render('anastasia');
+}); 
 
 var OpenRequestsReciever = function (openRequests, req, res)
 {
@@ -124,11 +134,11 @@ var RequestsByRequesterReciever = function (userRequest, req, res)
     res.send(userRequest);
 }
 
-var RestaurantsReciver = function (Restaurants, req, res)
+var RestaurantsReciever = function (Restaurants, req, res)
 {
   res.send(Restaurants);
 }
 
 module.exports.RequestsByRequesterReciever  = RequestsByRequesterReciever
 module.exports.OpenRequestsReciever = OpenRequestsReciever;
-module.exports.RestaurantsReciver = RestaurantsReciver;
+module.exports.RestaurantsReciever = RestaurantsReciever;
