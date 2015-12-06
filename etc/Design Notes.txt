@@ -1,0 +1,2 @@
+On sign in page - Once logged in, should there be a different view showing name/some info? If it detects a user is logged in, it should just display a logout button. Ideally we can keep the same ejs file, and just do some EJS
+logic in order to choose what elements to display. 
