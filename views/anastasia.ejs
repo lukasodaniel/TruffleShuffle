@@ -26,8 +26,14 @@
 		</div>
     <div class="container">
 	  <div class="col-lg-12 col-md-12 col-sm-12 jumbotron" style="padding-top:2%; margin-right:0%;">
-		<div class="row"><a href="/login?" class="btn btn-primary" style="margin-bottom:2%; margin-right: 0px; float: right;">Login</a>
-		<p><a href="/register" class="btn btn-primary" style="margin-bottom:2%; margin-right: 8px; float: right;">Register</a></p>
+		<div class="row">
+			<% if(locals.user){ %>
+   				<h1>HI <%=user.givenName%></h1>
+ 			<% } else{ %>  
+   				<a href="/login?" class="btn btn-primary" style="margin-bottom:2%; margin-right: 0px; float: right;">Login</a>
+				<p><a href="/register" class="btn btn-primary" style="margin-bottom:2%; margin-right: 8px; float: right;">Register</a></p>
+			<% } %>
+
 		</div>
 		<div class="row col-lg-12 col-md-12 col-sm-12" id="topbar">
 		  <div class="topbar-content">
