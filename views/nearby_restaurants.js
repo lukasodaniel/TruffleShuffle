@@ -7,7 +7,7 @@ $(document).ready(function () {
             //console.log(jd[i]);
             var row = $('<tr></tr>');
             var name = $('<td>'+data[i]['name']+'</td>');
-            var address = $('<td>'+data[i]['address']+'</td>');
+            var address = $('<td style="text-style:italics">'+data[i]['address']+'</td>');
 
             $("#restaurants").append(row);
             row.append(name);
@@ -19,7 +19,6 @@ $(document).ready(function () {
         });*/
 
     });
-    
 });
 
 

@@ -11,6 +11,7 @@ $(document).ready(function () {
             var requester = $('<td>'+data[i].Requester+'</td>');
             var pickupButtonEntry = $('<td></td>')
             var pickupButton = $('<td><button id='+data[i].id+' style="border:none;">Take Order</button></td>')
+
             var button = $('<button id='+data[i].id+'>Take Order</button>');
             var id = data[i].id;
 
@@ -38,7 +39,8 @@ $(document).ready(function () {
 					b.css('color','black');
                     b.text("Picked up order");
                     console.log("success");
-                },
+                },                
+                
                 error: function() {
                     b.css('background-color','#910D19');
 					b.css('color','white');

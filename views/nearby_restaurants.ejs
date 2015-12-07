@@ -4,8 +4,8 @@
     <meta charset="utf-8" />
     <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet"/>
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.js"></script>
@@ -60,6 +60,15 @@ function createMarker(place) {
 	
 	<title>Restaurants Nearby</title>
 	</div>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.js"></script>
+    <script type="text/javascript" src="animation.js"></script>    
+    <script src="http://connect.soundcloud.com/sdk.js"></script>
+    <script src="nearby_restaurants.js"></script>
+    <script type="text/javascript" src="thejspart.js"></script>
+    
+    <title>Restaurants Nearby</title>
+    </div>
   </head>
   <body>
    <div class="row">
@@ -69,16 +78,16 @@ function createMarker(place) {
         </div>
     </div>
     <div class="container">
-	  <div class="col-lg-12 col-md-12 col-sm-12 jumbotron" style="padding-top:2%; margin-right:0%;">
-			<div class="row">
-				<% if(locals.user){ %>
-					<a href="/logout" class="btn btn-primary" style="margin-top:1.5%; margin-right: 0px; float: left;">Logout</a>
-					<h3 id = "userGreeting"><i class="fa fa-user"></i>&nbsp;Hello, <%=user.givenName%>!</h3>
-				<% } else{ %>  
-					<a href="/login?" class="btn btn-primary" style="margin-bottom:2%; margin-right: 0px; float: right;">Login</a>
-					<p><a href="/register" class="btn btn-primary" style="margin-bottom:2%; margin-right: 8px; float: right;">Register</a></p>
-				<% } %>
-			</div>
+      <div class="col-lg-12 col-md-12 col-sm-12 jumbotron" style="padding-top:2%; margin-right:0%;">
+            <div class="row">
+                <% if(locals.user){ %>
+                    <a href="/logout" class="btn btn-primary" style="margin-top:1.5%; margin-right: 0px; float: left;">Logout</a>
+                    <h3 id = "userGreeting"><i class="fa fa-user"></i>&nbsp;Hello, <%=user.givenName%>!</h3>
+                <% } else{ %>  
+                    <a href="/login?" class="btn btn-primary" style="margin-bottom:2%; margin-right: 0px; float: right;">Login</a>
+                    <p><a href="/register" class="btn btn-primary" style="margin-bottom:2%; margin-right: 8px; float: right;">Register</a></p>
+                <% } %>
+            </div>
                 <div class="row col-lg-12 col-md-12 col-sm-12" id="topbar">
                     <div class="topbar-content">
                         <ul>
@@ -97,7 +106,7 @@ function createMarker(place) {
                         </ul>
                     </div>
                 </div>
-				<div id="restaurantsDiv">
+                <div id="restaurantsDiv">
                 <div class="row col-lg-12 col-md-12 col-sm-12">
                     <h1 id="restaurants-title">List of Restaurants</h1>
                 </div>
@@ -113,14 +122,15 @@ function createMarker(place) {
 				<br>
 				<h3 id="restaurants-title">Restaurants in the Vicinity</h3>
 				<div id="map"></div>
+                  
                 </div>
-				</div>
+                </div>
             </div>
         </div>
-	<footer>
-		 <div class="row col-lg-12 col-md-12 col-sm-hidden" id="truffleShuffleBoy">
-		<h1><i class="fa fa-hashtag"></i>UNCTruffleShuffle</h1>
-		</div>
-	</footer>
+    <footer>
+         <div class="row col-lg-12 col-md-12 col-sm-hidden" id="truffleShuffleBoy">
+        <h1><i class="fa fa-hashtag"></i>UNCTruffleShuffle</h1>
+        </div>
+    </footer>
   </body>
 </html>
