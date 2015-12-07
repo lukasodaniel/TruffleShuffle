@@ -5,15 +5,14 @@ $(document).ready(function () {
         for(i in jd){
             data[i] = jd[i];
             var row = $('<tr></tr>');
-            var address = $('<td style="padding-left:2%; font-style:italic">'+data[i].DeliveryAddress+'</td>');
+            var address = $('<td style="font-style:italic">'+data[i].DeliveryAddress+'</td>');
             var restaurant = $('<td>'+restaurants[data[i]['RestaurantID']].name+'</td>');
-            var details = $('<td style="padding-left:2%;">'+data[i].OrderDetails+'</td>');
-            var requester = $('<td style="padding-left:2%;">'+data[i].Requester+'</td>');
+            var details = $('<td>'+data[i].OrderDetails+'</td>');
+            var requester = $('<td>'+data[i].Requester+'</td>');
             var pickupButtonEntry = $('<td></td>')
-            var pickupButton = $('<td><button id='+data[i].id+' style="color: #F7A48D; background: none; margin: 2%; border: none;">Take Order</button></td>')
+            var pickupButton = $('<td><button id='+data[i].id+' style="">Take Order</button></td>')
             var button = $('<button id='+data[i].id+'>Take Order</button>');
             var id = data[i].id;
-            
 
             $("#openRequests").append(row);
             row.append(requester);

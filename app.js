@@ -7,8 +7,7 @@ var http = require('http');
 var user = require('./User');
 var foodRequests = require('./Request');
 var Restaurants = require('./Restaurant');
-var bodyParser = require('body-parser')
-
+var bodyParser = require('body-parser');
 
 var app = express();
 
@@ -73,8 +72,8 @@ app.get('/', function(req, res) {
   res.render('anastasia');
 });
 
-app.use('/submitRequest', function(req, res) {
-  res.render('submitRequest');
+app.use('/submit_request', function(req, res) {
+  res.render('submit_request');
 });
 
 
