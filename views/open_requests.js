@@ -10,7 +10,7 @@ $(document).ready(function () {
             var details = $('<td>'+data[i].OrderDetails+'</td>');
             var requester = $('<td>'+data[i].Requester+'</td>');
             var pickupButtonEntry = $('<td></td>')
-            var pickupButton = $('<td><button id='+data[i].id+' style="">Take Order</button></td>')
+            var pickupButton = $('<td><button id='+data[i].id+'>Take Order</button></td>')
             var button = $('<button id='+data[i].id+'>Take Order</button>');
             var id = data[i].id;
 
@@ -35,9 +35,10 @@ $(document).ready(function () {
                 type : "POST",
                 success: function(data) {
                     b.css('background-color','#66ff99');
-                    b.text("Picked up order");
+                    b.text("Picked up");
                     console.log("success");
-                },
+                },                
+                
                 error: function() {
                     b.css('background-color','red');
                     b.text("Error: please refresh");

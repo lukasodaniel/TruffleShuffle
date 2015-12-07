@@ -302,11 +302,15 @@ text-align: center;
  
 #openRequests tr:nth-child(odd) td { background: #FFE2AD; }  
 #openRequests td button{
-	color: #F7A48D; background: none; margin: 2%; border: none;
+	color: #F7A48D;
+	background: none;
+	margin: 2%;
+	border: none;
+	border-radius: 10%;
 }
 
 
-#openRequests td button:hover { background: #666; color: #FFF; } /* Hover cell effect! */
+#openRequests td button:hover { background: #66ff99; color: #000; } /* Hover cell effect! */
 
 .jumbotron-requests{
     min-height: 540px;
