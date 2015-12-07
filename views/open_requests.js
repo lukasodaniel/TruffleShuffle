@@ -10,7 +10,7 @@ $(document).ready(function () {
             var details = $('<td>'+data[i].OrderDetails+'</td>');
             var requester = $('<td>'+data[i].Requester+'</td>');
             var pickupButtonEntry = $('<td></td>')
-            var pickupButton = $('<td><button id='+data[i].id+' style="">Take Order</button></td>')
+            var pickupButton = $('<td><button id='+data[i].id+' style="border:none;">Take Order</button></td>')
             var button = $('<button id='+data[i].id+'>Take Order</button>');
             var id = data[i].id;
 
@@ -34,12 +34,14 @@ $(document).ready(function () {
                     },
                 type : "POST",
                 success: function(data) {
-                    b.css('background-color','#66ff99');
+                    b.css('background-color','#B8DA9D');
+					b.css('color','black');
                     b.text("Picked up order");
                     console.log("success");
                 },
                 error: function() {
-                    b.css('background-color','red');
+                    b.css('background-color','#910D19');
+					b.css('color','white');
                     b.text("Error: please refresh");
                     console.log("fail");
                 }

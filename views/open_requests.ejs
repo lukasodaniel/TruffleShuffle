@@ -27,7 +27,7 @@
 			<div class="row">
 				<% if(locals.user){ %>
 					<a href="/logout" class="btn btn-primary" style="margin-top:1.5%; margin-right: 0px; float: left;">Logout</a>
-					<h3 id = "userGreeting"><i class="fa fa-user"></i>Hello, <%=user.givenName%>!</h3>
+					<h3 id = "userGreeting"><i class="fa fa-user"></i>&nbsp;Hello, <%=user.givenName%>!</h3>
 				<% } else{ %>  
 					<a href="/login?" class="btn btn-primary" style="margin-bottom:2%; margin-right: 0px; float: right;">Login</a>
 					<p><a href="/register" class="btn btn-primary" style="margin-bottom:2%; margin-right: 8px; float: right;">Register</a></p>

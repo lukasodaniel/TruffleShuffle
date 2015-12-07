@@ -9,11 +9,8 @@ $(document).ready(function () {
             var address = $('<td>'+data[i]['address']+'</td>');
 
             $("#restaurants").append(row);
-            
             row.append(name);
             row.append(address);
-
-
         }
 
         /*$("button").click(function() {

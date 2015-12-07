@@ -154,7 +154,7 @@ app.post('/submitRequestForm', function (req,res)
 
     currentRequest.saveRequest();
    
-    res.redirect('/');
+    //res.redirect('/');
     //res.send({redirect: '/'});
     //res.render('anastasia');
 }); 
