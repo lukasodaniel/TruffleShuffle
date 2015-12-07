@@ -338,3 +338,8 @@ td button:hover { background: #666; color: #FFF; } /* Hover cell effect! */
 	font-weight: bold;
 	letter-spacing: 1.2px;
 }
+#map {
+		padding: 30px;
+        width: 100%;
+		height: 450px;
+}

@@ -7,6 +7,59 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet"/>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.js"></script>
+	<script type="text/javascript" src="animation.js"></script>    
+	<script src="http://connect.soundcloud.com/sdk.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZov5rvX3xWioUyogzh5d2jLgR09FRccA&signed_in=true&libraries=places&callback=initMap" async defer></script>
+	<script src="nearby_restaurants.js"></script>
+	<script>
+		    var map;
+var infowindow;
+
+function initMap() {
+  var chapelhill = {lat: 35.90974, lng: -79.05307};
+
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: chapelhill,
+    zoom: 15
+  });
+
+  infowindow = new google.maps.InfoWindow();
+
+  var service = new google.maps.places.PlacesService(map);
+  service.nearbySearch({
+    location: chapelhill,
+    radius: 1500,
+    types: ['restaurant']
+  }, callback);
+}
+
+function callback(results, status) {
+  if (status === google.maps.places.PlacesServiceStatus.OK) {
+    for (var i = 0; i < results.length; i++) {
+      createMarker(results[i]);
+    }
+  }
+}
+
+function createMarker(place) {
+  var placeLoc = place.geometry.location;
+  var marker = new google.maps.Marker({
+    map: map,
+    position: place.geometry.location
+  });
+
+  google.maps.event.addListener(marker, 'click', function() {
+    infowindow.setContent(place.name);
+    infowindow.open(map, this);
+  });
+}
+	</script>
+	<script type="text/javascript" src="thejspart.js"></script>
+	
+	<title>Restaurants Nearby</title>
+	</div>
     <link rel="stylesheet" type="text/css" href="style.css">
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.js"></script>
     <script type="text/javascript" src="animation.js"></script>    
@@ -59,13 +112,17 @@
                 </div>
                 <div class="row col-lg-12 col-md-12 col-sm-12">
                  <table id="restaurants">
-                    <thead>
-                      <tr>
-                        <th>Restaurant Name</th>
-                        <th>Address</th>
-                      </tr>
-                    </thead>
-                </table>
+					<thead>
+					  <tr>
+						<th>Restaurant Name</th>
+						<th>Address</th>
+					  </tr>
+					</thead>
+				</table>
+				<br>
+				<h3 id="restaurants-title">Restaurants in the Vicinity</h3>
+				<div id="map"></div>
+                  
                 </div>
                 </div>
             </div>

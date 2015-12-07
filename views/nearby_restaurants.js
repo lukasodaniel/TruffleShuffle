@@ -1,4 +1,5 @@
 $(document).ready(function () {
+	
     var data = new Array();
     out = $.getJSON("getRestaurants", function(jd){
         for(i in jd){
@@ -18,12 +19,6 @@ $(document).ready(function () {
         });*/
 
     });
-
-    
-    
-
-    
-    
 });
 
 

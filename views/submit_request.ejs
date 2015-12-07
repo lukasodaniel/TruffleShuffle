@@ -13,7 +13,11 @@
 	<script src="http://connect.soundcloud.com/sdk.js"></script>
 	<script type="text/javascript" src="thejspart.js"></script>
 	<script type="text/javascript" src="RequestForm.js"></script>
-	
+	<script>
+		function clearPage(){
+			$("#submitRequest").html("Thank you! Your order is being processed.");
+		}
+	</script>
 	<title>Truffle Shuffle</title>
   </head>
   <body>
@@ -79,7 +83,7 @@
     </label> 
      <label>
         <span>&nbsp;</span> 
-        <input type="submit" class="button" value="Send" /> 
+        <input type="submit" class="button" value="Send" onclick="clearPage()" /> 
     </label>    
 </form>
 		</div>
