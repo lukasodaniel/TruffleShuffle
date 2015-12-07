@@ -82,9 +82,16 @@ app.use('/currentRequests', function(req, res) {
   res.render('open_requests');
 });
 
+app.use('/restaurants', function(req, res) {
+  res.render('nearby_restaurants');
+});
+
+app.use('/track_request', function(req, res) {
+  res.render('track_request');
+});
+
 app.get('/getAllRequests', function(req, res) {
   foodRequests.getAllOpenRequests();
-
 });
 
 
@@ -108,11 +115,16 @@ app.get('/getReqestsByRequester', function (req,res)
     foodRequests.getRequestsByRequester(req.user.username, req, res); //gets current user from stormpath session
 });
 
+app.get('/getReqestsByDeliverer', function (req,res)
+{
+    foodRequests.getRequestsByDeliverer(req.user.username, req, res); //gets current user from stormpath session
+});
+
 app.post('/pickupOrder', function (req,res)
 {
     //console.log(req.body.id);
     var orderID = req.body.id
-    foodRequests.pickupOrder(orderID);
+    foodRequests.pickupOrder(req.user.username,orderID);
     res.send({redirect: '/'});
 });
 
