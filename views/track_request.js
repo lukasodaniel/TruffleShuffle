@@ -8,7 +8,7 @@ $(document).ready(function () {
 
         for(i in jd){
             var order = jd[i];
-            console.log("requester", order);
+            //console.log("requester", order);
 
             var row = $('<tr></tr>');
             var address = $('<td style="padding-left:2%; font-style:italic">'+order.DeliveryAddress+'</td>');
@@ -63,9 +63,10 @@ $(document).ready(function () {
     var deliverTable = $("#other");
 
     out = $.getJSON("getReqestsByDeliverer", function(data){
-        console.log("uhhf");
+        //console.log("uhhf");
         for(i in data){
             var order = data[i];
+            var phone;
                  
             var row = $('<tr id="row'+order.id+'"></tr>');
             var address = $('<td style="padding-left:2%; font-style:italic">'+order.DeliveryAddress+'</td>');
@@ -74,8 +75,20 @@ $(document).ready(function () {
             //var requester = $('<td style="padding-left:2%;">'+order.Requester+'</td>');
             var phoneNumber = $('<td style="padding-left:2%;"></td>');
             phoneNumber.text((function(){
-                $.ajax
-                return "INSERT GETTER HERE";
+                $.ajax('/getUserPhone',
+                {
+                    data : {
+                        phone : order.Requester
+                    },
+                    async: false,
+                    type : "POST",
+
+                    success: function(data){
+                        phone = data;
+                    }
+                });
+                return phone;
+                //return "INSERT GETTER HERE";
             })());
 
             var fulfillButton = $('<td><button id='+order.id+' style="color: #F7A48D; background: none; margin: 2%; border: none;">Order has been fulfilled?</button></td>')

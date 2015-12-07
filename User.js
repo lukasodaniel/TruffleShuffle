@@ -74,6 +74,24 @@ function updateUser()
 	);
 }
 
+var getUserPhoneNumber = function(email,req,res)
+{
+	connection.query("SELECT PhoneNumber FROM TS_Users WHERE Email=?",[email], 
+	function(err, rows, fields) {
+		if (err) 
+		{
+			throw err;
+		}
+		else
+		{
+			mainapp.userPhoneReciever(rows[0].PhoneNumber, req,res)
+		}
+		
+	}
+	);
+}
+
+module.exports.getUserPhone =  getUserPhoneNumber;
 
 //No getter or setter for email, and email is being used as a primary key for each user, so we don't want to change that.
 

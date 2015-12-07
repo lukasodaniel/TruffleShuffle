@@ -8,6 +8,7 @@ var user = require('./User');
 var foodRequests = require('./Request');
 var Restaurants = require('./Restaurant');
 var bodyParser = require('body-parser');
+var url = require('url');
 
 var app = express();
 
@@ -140,6 +141,11 @@ app.get('/getRestaurants', function (req,res)
   Restaurants.getAllRestauraunts(req,res);
 })
 
+app.post('/getUserPhone', function (req,res)
+{
+  user.getUserPhone(req.body.phone, req,res);
+});
+
 app.post('/submitRequestForm', function (req,res)
 {
     var address = req.body.address1 + " " + req.body.address2 + " " + req.body.address3
@@ -159,7 +165,6 @@ var OpenRequestsReciever = function (openRequests, req, res)
 }
 
 
-
 var RequestsByRequesterReciever = function (userRequest, req, res)
 {
     res.send(userRequest);
@@ -170,6 +175,12 @@ var RestaurantsReciever = function (Restaurants, req, res)
   res.send(Restaurants);
 }
 
+var userPhoneReciever = function (phone, req, res)
+{
+  res.send(phone);
+}
+
 module.exports.RequestsByRequesterReciever  = RequestsByRequesterReciever
 module.exports.OpenRequestsReciever = OpenRequestsReciever;
 module.exports.RestaurantsReciever = RestaurantsReciever;
+module.exports.userPhoneReciever = userPhoneReciever;
