@@ -85,7 +85,7 @@ function updateRequest()
 
  var getRequestsByRequester = function(requesterEmail,req, res)
 {
-	connection.query("SELECT * FROM TS_Requests WHERE (Requester=? OR Deliverer=?) AND (NOT OrderStatus=?)", [requesterEmail, requesterEmail,"closed"]
+	connection.query("SELECT * FROM TS_Requests WHERE (Requester=? ) AND (NOT OrderStatus=?)", [requesterEmail,"closed"]
 	, function(err, rows, fields) {
 		if (err) 
 			throw err;
@@ -95,6 +95,20 @@ function updateRequest()
 		}
 	);
 }
+
+ var getRequestsByDeliverer = function(requesterEmail,req, res)
+{
+	connection.query("SELECT * FROM TS_Requests WHERE (Deliverer=? ) AND (NOT OrderStatus=?)", [requesterEmail,"closed"]
+	, function(err, rows, fields) {
+		if (err) 
+			throw err;
+		
+			//call a function in app.js, which will then 
+			mainapp.RequestsByRequesterReciever(rows, req, res);
+		}
+	);
+}
+
 
 var getAllOpenRequests = function(currentUser,req, res)
 {
@@ -110,9 +124,9 @@ var getAllOpenRequests = function(currentUser,req, res)
 	);
 }
 
-var pickupOrder = function (id)
+var pickupOrder = function (currentUser, id)
 {
-	connection.query("UPDATE TS_Requests SET OrderStatus=? WHERE id=?",["active",id], 
+	connection.query("UPDATE TS_Requests SET OrderStatus=?, Deliverer=? WHERE id=?",["active", currentUser,id], 
 	function(err, rows, fields) {
 		if (err) 
 		{
@@ -125,6 +139,7 @@ var pickupOrder = function (id)
 
 module.exports.getAllOpenRequests = getAllOpenRequests;
 module.exports.getRequestsByRequester = getRequestsByRequester;
+module.exports.getRequestsByDeliverer = getRequestsByDeliverer;
 module.exports.pickupOrder = pickupOrder;
 
 Request.prototype.getRequesterInfo = function()

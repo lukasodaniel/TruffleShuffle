@@ -27,6 +27,7 @@ $(document).ready(function () {
         }
 
         $("button").click(function() {
+            var b = $(this);
             $.ajax("/pickupOrder",
                 {
                 data : {
@@ -34,10 +35,14 @@ $(document).ready(function () {
                     },
                 type : "POST",
                 success: function(data) {
-                    window.location = data.redirect
+                    b.css('background-color','#66ff99');
+                    b.text("picked up order");
+                    console.log("success");
                 },
                 error: function() {
-                    alert("Unable to obtain restaurants")
+                    b.css('background-color','red');
+                    b.text("Error: please refresh");
+                    console.log("fail");
                 }
             });
         });
