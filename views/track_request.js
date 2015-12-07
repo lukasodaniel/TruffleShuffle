@@ -63,7 +63,6 @@ $(document).ready(function () {
     var deliverTable = $("#other");
 
     out = $.getJSON("getReqestsByDeliverer", function(data){
-        //console.log("uhhf");
         for(i in data){
             var order = data[i];
             var phone;
@@ -72,24 +71,12 @@ $(document).ready(function () {
             var address = $('<td style="padding-left:2%; font-style:italic">'+order.DeliveryAddress+'</td>');
             var restaurant = $('<td>'+restaurants[order['RestaurantID']].name+'</td>');
             var details = $('<td style="padding-left:2%;">'+order.OrderDetails+'</td>');
-            //var requester = $('<td style="padding-left:2%;">'+order.Requester+'</td>');
-            var phoneNumber = $('<td style="padding-left:2%;"></td>');
-            phoneNumber.text((function(){
-                $.ajax('/getUserPhone',
-                {
-                    data : {
-                        phone : order.Requester
-                    },
-                    async: false,
-                    type : "POST",
-
-                    success: function(data){
-                        phone = data;
-                    }
-                });
-                return phone;
-                //return "INSERT GETTER HERE";
-            })());
+            var phoneNumber = $('<td class="phone" id="' + order.Requester + '" style="padding-left:2%;"></td>');
+            // phoneNumber.text((function(){
+                
+            //     return phone;
+            //     //return "INSERT GETTER HERE";
+            // })());
 
             var fulfillButton = $('<td><button id='+order.id+' style="color: #F7A48D; background: none; margin: 2%; border: none;">Order has been fulfilled?</button></td>')
             //var button = $('<button id='+data[i].id+'>Take Order</button>');
@@ -104,6 +91,22 @@ $(document).ready(function () {
             row.append(phoneNumber);
             row.append(fulfillButton);
         }
+
+        $(".phone").each(function() {
+            var current = $(this);
+            $.ajax('/getUserPhone',
+                {
+                    data : {
+                        phone : $(this).attr('id')
+                    },
+                    
+                    type : "POST",
+
+                    success: function(data){
+                        console.log(data);
+                        current.text(data);
+                    }
+                });});
 
         /*$("button").click(function() {
             $.ajax("");
