@@ -33,6 +33,7 @@ $(document).ready(function () {
         $("button").click(function() {
             console.log("clicked!!");
             var b = $(this);
+            var row1 = $('<tr id="row'+order.id+'"></tr>');
             $.ajax("/closeOrder",
                 {
                 data : {
@@ -41,8 +42,9 @@ $(document).ready(function () {
                 type : "POST",
                 success: function(data) {
                     b.css('background-color','#66ff99');
-                    b.text("picked up order");
+                    b.text("Order successfully closed");
                     console.log("success");
+                    row1.toggle("drop");
                 },
                 error: function() {
                     b.css('background-color','red');
@@ -65,7 +67,7 @@ $(document).ready(function () {
         for(i in data){
             var order = data[i];
                  
-            var row = $('<tr></tr>');
+            var row = $('<tr id="row'+order.id+'"></tr>');
             var address = $('<td style="padding-left:2%; font-style:italic">'+order.DeliveryAddress+'</td>');
             var restaurant = $('<td>'+restaurants[order['RestaurantID']].name+'</td>');
             var details = $('<td style="padding-left:2%;">'+order.OrderDetails+'</td>');
@@ -97,6 +99,7 @@ $(document).ready(function () {
         $("button").click(function() {
             console.log("clicked!!");
             var b = $(this);
+            var row2 = $('#row'+this.id);
             $.ajax("/closeOrder",
                 {
                 data : {
@@ -105,8 +108,9 @@ $(document).ready(function () {
                 type : "POST",
                 success: function(data) {
                     b.css('background-color','#66ff99');
-                    b.text("picked up order");
+                    b.text("Order Successfully Closed");
                     console.log("success");
+                    row2.toggle("drop");
                 },
                 error: function() {
                     b.css('background-color','red');
