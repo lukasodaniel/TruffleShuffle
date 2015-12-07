@@ -137,10 +137,24 @@ var pickupOrder = function (currentUser, id)
 	);
 }
 
+var closeOrder = function (currentUser, id)
+{
+	connection.query("UPDATE TS_Requests SET OrderStatus=? WHERE id=?",["closed",id], 
+	function(err, rows, fields) {
+		if (err) 
+		{
+			throw err;
+		}
+		
+	}
+	);
+}
+
 module.exports.getAllOpenRequests = getAllOpenRequests;
 module.exports.getRequestsByRequester = getRequestsByRequester;
 module.exports.getRequestsByDeliverer = getRequestsByDeliverer;
 module.exports.pickupOrder = pickupOrder;
+module.exports.closeOrder = closeOrder;
 
 Request.prototype.getRequesterInfo = function()
 {
