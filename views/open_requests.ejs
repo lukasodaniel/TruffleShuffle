@@ -23,8 +23,16 @@
         </div>
     </div>
     <div class="container">
-        <div class="jumbotron-requests col-lg-12 col-md-12 col-sm-12">
-            <div class="jumbotron" style="min-height:0">
+	  <div class="col-lg-12 col-md-12 col-sm-12 jumbotron" style="padding-top:2%; margin-right:0%;">
+			<div class="row">
+				<% if(locals.user){ %>
+					<a href="/logout" class="btn btn-primary" style="margin-top:1.5%; margin-right: 0px; float: left;">Logout</a>
+					<h3 id = "userGreeting"><i class="fa fa-user"></i>Hello, <%=user.givenName%>!</h3>
+				<% } else{ %>  
+					<a href="/login?" class="btn btn-primary" style="margin-bottom:2%; margin-right: 0px; float: right;">Login</a>
+					<p><a href="/register" class="btn btn-primary" style="margin-bottom:2%; margin-right: 8px; float: right;">Register</a></p>
+				<% } %>
+			</div>
                 <div class="row col-lg-12 col-md-12 col-sm-12" id="topbar">
                     <div class="topbar-content">
                         <ul>
@@ -51,8 +59,8 @@
                 </div>
                 <div class="row col-lg-12 col-md-12 col-sm-12">
                     <table id="openRequests">
-                        <tr>
 							<thead>
+							<tr>
                             <th style="text-align:center;">Requester</th>
                             <th style="text-align:center;">Restaurant
                             Requested</th>
@@ -60,14 +68,13 @@
                             <th style="text-align:center; font-weight:bold;">
                             Delivery Address</th>
                             <th style="text-align:center;">Pickup</th>
+							</tr>
 							</thead>
-                        </tr>
                     </table>
                 </div>
 				</div>
             </div>
         </div>
-    </div>
 	<footer>
 		 <div class="row col-lg-12 col-md-12 col-sm-hidden" id="truffleShuffleBoy">
 		<h1><i class="fa fa-hashtag"></i>UNCTruffleShuffle</h1>
