@@ -128,6 +128,14 @@ app.post('/pickupOrder', function (req,res)
     res.send({redirect: '/'});
 });
 
+app.post('/closeOrder', function (req,res)
+{
+    //console.log(req.body.id);
+    var orderID = req.body.id
+    foodRequests.closeOrder(req.user.username,orderID);
+    res.send({redirect: '/'});
+});
+
 app.get('/getRestaurants', function (req,res)
 {
   Restaurants.getAllRestauraunts(req,res);
