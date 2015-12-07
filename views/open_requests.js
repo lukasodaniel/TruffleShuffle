@@ -35,7 +35,7 @@ $(document).ready(function () {
                 type : "POST",
                 success: function(data) {
                     b.css('background-color','#66ff99');
-                    b.text("Order successfull closed");
+                    b.text("Picked up order");
                     console.log("success");
                 },
                 error: function() {
