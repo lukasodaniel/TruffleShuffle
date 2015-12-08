@@ -55,7 +55,7 @@ var Request = function(requester, deliverer, orderStatus, restaurantID, orderDet
 
 module.exports.Request = Request;
 
-Request.prototype.saveRequest = function()		//Add a row to the user email with current information 
+Request.prototype.saveRequest = function(req,res)		//Add a row to the user email with current information 
 //Combine save and update? Action on duplicate?
 {
 	connection.query("INSERT INTO TS_Requests VALUES(NULL, ?,?,?,?,?,?,?)", [this.requester, this.deliverer, this.orderStatus, this.restaurantID, this.orderDetails, this.deliveryAddress, this.paymentMethod]
@@ -63,8 +63,9 @@ Request.prototype.saveRequest = function()		//Add a row to the user email with c
 		if (err) 
 			throw err;
 		
-		
+		mainapp.submitFormReciever(req,res);
 		}
+		
 	);
 }
 
