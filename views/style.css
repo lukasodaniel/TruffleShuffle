@@ -343,3 +343,8 @@ td button:hover { background: #666; color: #FFF; } /* Hover cell effect! */
         width: 100%;
 		height: 450px;
 }
+
+#logo img{
+	width: 215px;
+	height: 180px;
+}
