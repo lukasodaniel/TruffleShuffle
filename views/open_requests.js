@@ -2,6 +2,14 @@ $(document).ready(function () {
     var data = new Array();
     var restaurants = getRestaurants();
     out = $.getJSON("getAllOpenRequests", function(jd){
+		if (jd.length > 0){
+			var tableHeaders = "<thead><tr><th>Requester</th><th>Restaurant Requested</th><th>Order Details</th><th>Pickup</th></tr></thead>";
+			$("#openRequests").append(tableHeaders);
+		}
+		else{
+			$("#noRequestsMessage").css("font-size","15px");
+			$("#noRequestsMessage").html("There are no open requests at the moment.");
+		}
         for(i in jd){
             data[i] = jd[i];
             var row = $('<tr></tr>');
