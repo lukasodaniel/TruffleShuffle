@@ -73,20 +73,20 @@ app.get('/', function(req, res) {
   res.render('anastasia');
 });
 
-app.use('/submit_request', function(req, res) {
+app.use('/submit_request',stormpath.loginRequired, function(req, res) {
   res.render('submit_request');
 });
 
 
-app.use('/currentRequests', function(req, res) {
+app.use('/currentRequests',stormpath.loginRequired, function(req, res) {
   res.render('open_requests');
 });
 
-app.use('/restaurants', function(req, res) {
+app.use('/restaurants',stormpath.loginRequired, function(req, res) {
   res.render('nearby_restaurants');
 });
 
-app.use('/track_request', function(req, res) {
+app.use('/track_request',stormpath.loginRequired, function(req, res) {
   res.render('track_request');
 });
 
@@ -152,7 +152,7 @@ app.post('/submitRequestForm', function (req,res)
     var currentRequest = new foodRequests.Request(req.user.username, null,"open",req.body.restaurantSelection,
         req.body.message,address, req.body.selection);
 
-    currentRequest.saveRequest();
+    currentRequest.saveRequest(req,res);
    
     //res.redirect('/');
     //res.send({redirect: '/'});
@@ -180,7 +180,13 @@ var userPhoneReciever = function (phone, req, res)
   res.send(phone);
 }
 
+var submitFormReciever = function (req,res)
+{
+  res.redirect('/track_request');
+}
+
 module.exports.RequestsByRequesterReciever  = RequestsByRequesterReciever
 module.exports.OpenRequestsReciever = OpenRequestsReciever;
 module.exports.RestaurantsReciever = RestaurantsReciever;
 module.exports.userPhoneReciever = userPhoneReciever;
+module.exports.submitFormReciever = submitFormReciever;
