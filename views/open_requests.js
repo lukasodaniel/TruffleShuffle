@@ -3,7 +3,7 @@ $(document).ready(function () {
     var restaurants = getRestaurants();
     out = $.getJSON("getAllOpenRequests", function(jd){
 		if (jd.length > 0){
-			var tableHeaders = "<thead><tr><th>Requester</th><th>Restaurant Requested</th><th>Order Details</th><th>Pickup</th></tr></thead>";
+			var tableHeaders = "<thead><tr><th>Requester</th><th>Restaurant Requested</th><th>Order Details</th><th>Delivery Address</th><th>Pickup</th></tr></thead>";
 			$("#openRequests").append(tableHeaders);
 		}
 		else{
