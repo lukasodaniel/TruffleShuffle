@@ -42,7 +42,7 @@ $(document).ready(function () {
                 },                
                 
                 error: function() {
-                    b.css('background-color','#910D19');
+                    b.css('background-color','crimson');
 					b.css('color','white');
                     b.text("Error: please refresh");
                     console.log("fail");

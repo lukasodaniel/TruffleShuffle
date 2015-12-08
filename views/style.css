@@ -265,7 +265,7 @@ table{
 	width: 1000px;
 	max-width: 100%;
 	border-collapse: separate; 
-	border-spacing: 3px;
+	border-spacing: 1px;
 }
 
 td, th {
